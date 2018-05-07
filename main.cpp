@@ -69,7 +69,9 @@ int main() {
 	 //   IF IMAGE IS USED:
 	 //  =================================================
 	if (fileType == "jpg" || fileType == "png") {
-		cap >> cv::imread(videoFilename);
+		
+		cap = cv::VideoCapture(videoFilename);
+		
 	}//if
 
 	else {
