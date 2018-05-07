@@ -1,0 +1,131 @@
+****************************************************************************************
+The following is an example for uploading an image every few seconds to dropbox
+****************************************************************************************
+>>Pi camera module is required.
+
+>>Raspberry Pi Model 2 and above is required. 
+========================================================================================
+0. raspian.
+
+1. apt-get update && apt-get upgrade
+
+2. raspi-config > interface > pi camera > enable
+
+3. interface > ssh > enable
+
+4. set password
+
+5. <finish> and reboot
+
+6. raspistill -o image.jpg
+
+7. apt-get -y install fbi 
+
+8. fbi image.jpg
+
+9. -/+ to zoom
+
+10. raspistill -vf -hf to flip vertically or horizonally 
+
+11. sudo apt-get install apache2 mysql-server mysql-client php
+
+12. sudo apt-get install libapache2-mod-php php-mysql php-curl php-pear php-dev php-mcrypt 
+
+13. sudo apt-get install php-json git-core redis-server build-essential ufw ntp
+*********Note: majority of updated distros have php7 installed.*********
+
+14. sudo apt-get install gnome-schedule
+
+15. sudo apt-get install imagemagick
+(^ for editing purposes ^)
+
+16. sudo apt-get install ftp
+
+17. sudo nano /home/pi/parking.sh
+
+18. ###########parking script:
+
+filename=$(date -u +"%Y%m%d%H%M%S").jpg
+date=$(date +"%d-%m-%Y")
+tijd=$(date +"%H:%M")
+host=raspberrypi
+user=pi
+pass=winter549
+#Capture image
+raspistill  -q 20 -n -ex auto -vf -hf  -mm matrix  -drc high  -o /tmp/$filename
+ftp -ivn $host<<EOF
+user $user $pass
+put  /tmp/$filename parkingdemo.jpg
+EOF
+#Remove transfered image file This is optional, as /tmp gets cleaned up after e$
+rm  /tmp/$filename
+
+
+####################################################
+
+19. sudo chmod +x parking.sh
+(^ make executable!)
+20. sudo chown -R pi /var/www
+
+21. sudo apt-get install vsftpd
+
+22. sudo nano /etc/vsftpd.conf
+
+23. At the bottom of the configuration file, add force_dot_files=YES
+Check to make sure of the following: 
+
+anonymous_enable=NO
+Uncomment local_enable=YES and write_enable=YES
+
+24. sudo service vsftpd restart
+
+25. sudo service apache2 restart
+
+26. sudo apt-get install proftpd
+
+27. sudo nano /etc/proftpd/proftpd.conf
+
+28. comment out Default Root ~
+
+29. Make sure it is in Standalone mode and save it. 
+
+30. sudo service proftpd reload
+
+ftp is enabled, may need further security configurations.
+can be accessed through filezilla or your browser using 
+ftp://ipaddressofthepi
+when on the same network. Now we will find ways of uploading
+to a web host. 
+
+31. crontab -e
+
+32. at the end of the cron script add the following :
+
+* * * * * for i in 0 1 2; do /home/pi/parking.sh & sleep 10; done; 
+
+
+***************************************************************************
+Upload.sh
+***************************************************************************
+
+#!/bin/bash
+cd home/pi/Dropbox-Uploader
+sudo ./dropbox_uploader.sh upload /home/pi/parkingdemo.jpg parkingdemo.jpg
+cd
+done
+
+
+
+*******************************************************************************
+example crontab for above
+*******************************************************************************
+
+
+* * * * * for i in 0 1 2; do /home/pi/parking.sh ; done;
+* * * * * for i in 0 1 2; do ./Dropbox-Uploader/dropbox_uploader.sh upload /hom$
+
+
+
+
+
+
