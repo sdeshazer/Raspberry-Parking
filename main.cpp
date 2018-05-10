@@ -25,12 +25,12 @@ int main() {
 	//  ======================================
 	//  File Name Path
 	//  ======================================
-	string videoName = "/home/pi/VisionPark/Images/test." + fileType;
+	string videoName = "/home/pi/projects/VisualPark/images/latest." + fileType;
 
 	//  ======================================
 	//  Parking Data Set Map Overlay:                                     imageset1
 	//  ======================================                            parkinglot_1
-	string parkingData = "/home/pi/VisionPark/DataSets/imageset1.txt";
+	string parkingData = "/home/pi/projects/VisualPark/DataSets/imageset1.txt";
 
 	//  =========================================
 	//  Binary Set - yml updates simulataneously:
