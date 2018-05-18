@@ -169,7 +169,7 @@ int main() {
 			 //===================================================
 			 //			Open Binary Set: [ video ]
 			 //===================================================
-			ParkingStatuses.open("/home/pi/VisionPark/Output/ParkingStatuses.yml");//, std::ofstream::binary);
+			ParkingStatuses.open("/home/pi/VisionPark/Output/ParkingStatuses.yml", std::ofstream::binary);
 
 			for (int i = 0; i < parking_data.size(); i++) {
 
@@ -328,7 +328,7 @@ int main() {
 			//===================================================
 			//			Open Binary Set: [ image ]
 			//===================================================
-			ParkingStatuses.open("/home/pi/projects/VisualPark/Output/ParkingStatuses.yml");//, std::ofstream::binary);
+			ParkingStatuses.open("/home/pi/projects/VisualPark/Output/ParkingStatuses.yml", std::ofstream::binary);
 
 			for (int i = 0; i < parking_data.size(); i++) {
 				if (parking_data[i].getStatus()) color = cv::Scalar(0, 255, 0);
