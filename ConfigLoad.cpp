@@ -9,7 +9,6 @@
 #include <functional>
 #include <cctype>
 #include <locale>
-//#include <unistd.h>
 
 
 using namespace std;
@@ -25,6 +24,10 @@ string ConfigLoad::trim(const string& str) {
 	return str.substr(first, (last - first + 1));
 }//trim
 
+// parse paths : 
+// IMAGE (PNG/JPG): "/home/pi/projects/VisualPark/images/latest" (filetype is detected within main)
+// FILETYPE OF IMAGE
+// DataSet: "/home/pi/projects/VisualPark/DataSets/imageset1.txt" 
 void ConfigLoad::parse() {
 
 	ifstream cfgfile("/home/pi/VisionPark/config.cfg");
