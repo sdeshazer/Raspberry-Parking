@@ -19,18 +19,18 @@ int main() {
 	//  ======================================
 	//  Define File Type: AVI, MP4, PNG, JPG
 	//  ======================================
-	string fileType = "jpg";
+	string fileType = "png";
 
 
 	//  ======================================
 	//  File Name Path
 	//  ======================================
-	string videoName = "/home/pi/projects/VisualPark/images/latest." + fileType;
+	string videoName = "/home/pi/VisionPark/Images/test." + fileType;
 
 	//  ======================================
 	//  Parking Data Set Map Overlay:                                     imageset1
 	//  ======================================                            parkinglot_1
-	string parkingData = "/home/pi/projects/VisualPark/DataSets/imageset1.txt";
+	string parkingData = "/home/pi/VisionPark/DataSets/imageset1.txt";
 
 	//  =========================================
 	//  Binary Set - yml updates simulataneously:
@@ -54,7 +54,7 @@ int main() {
 	// allocating space for reading in the media file
 	cv::VideoCapture cap;
 
-	//  ==================================================
+	//  =================================================
 	//   If Using Live Camera Feed (Default is 0):
 	//  =================================================
 	if (videoFilename == "0" || videoFilename == "1" || videoFilename == "2") {
@@ -65,14 +65,15 @@ int main() {
 
 	}//if
 
-	 //  ==================================================
+	 //  =================================================
 	 //   IF IMAGE IS USED:
 	 //  =================================================
 	if (fileType == "jpg" || fileType == "png") {
-		
+
 		cap = cv::VideoCapture(videoFilename);
-		
+
 	}//if
+	
 
 	else {
 
@@ -178,17 +179,18 @@ int main() {
 
 					parkingStatuses[i] = 0; // spot open
 
-				}//
-
-				else {
+				}else {
 					color = cv::Scalar(0, 0, 255);
 
 					parkingStatuses[i] = 1; //closed
 
 				}//else
 
-
-				ParkingStatuses << "ParkingSpot " << i << ": " << parkingStatuses[i] << endl;
+				if (i == 0) {
+					ParkingStatuses << "ParkingSpot" << i << ":" << parkingStatuses[i] << endl;
+				}else {
+					ParkingStatuses << "," << "ParkingSpot" << i << ":" << parkingStatuses[i] << endl;
+				}//else
 
 				// ========================================================
 				//			Adding Text per ID
@@ -423,9 +425,13 @@ int main() {
 
 				else {
 					parkingStatuses[i] = 1; //closed
-				}
+				}//else
 
-				ParkingStatuses << "ParkingSpot " << i << ": " << parkingStatuses[i] << endl;
+				if (i == 0){
+					ParkingStatuses << "ParkingSpot" << i << ":" << parkingStatuses[i] << endl;
+				}else{
+					ParkingStatuses <<","<< "ParkingSpot" << i << ":" << parkingStatuses[i] << endl;
+				}//else
 				cout << "ParkingSpot " << i << ": " << parkingStatuses[i] << endl;
 				cout << endl;
 			}//for yml Loop
